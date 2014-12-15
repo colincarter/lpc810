@@ -17,7 +17,6 @@ int main(void)
     LPC_SWM->PINASSIGN0 = 0xffff0004UL;
     LPC_SWM->PINENABLE0 = 0xffffffbfUL;
 
-    // Pin 4 is output
     LPC_GPIO_PORT->DIR0 |= (1 << LED);
 
     // SysTick config
