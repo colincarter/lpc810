@@ -28,8 +28,8 @@ int main(void)
     SysTick->CTRL   |= (SysTick_CTRL_ENABLE_Msk | SysTick_CTRL_TICKINT_Msk | SysTick_CTRL_CLKSOURCE_Msk);
 
 
-	while(1)
-	{
+    while(1)
+    {
         LPC_GPIO_PORT->CLR0 = (1 << LED);
 
         delay(1000);
@@ -37,7 +37,7 @@ int main(void)
         LPC_GPIO_PORT->SET0 = (1 << LED);
 
         delay(1000);
-	}
+    }
 }
 
 void delay(const uint32_t ticks)
