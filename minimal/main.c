@@ -1,11 +1,10 @@
 #include "LPC8xx.h"
+#include "core_cmInstr.h"
 
 #define LED             (2)
 #define _SYSTEM_CLOCK   (12000000UL)
 
-void delay(const uint32_t ticks);
-
-volatile uint32_t tick;
+void delay(uint32_t ticks);
 
 int main(void)
 {
@@ -21,7 +20,6 @@ int main(void)
 
     // SysTick config
     // Enable, interrupts, use clock
-    tick            = 0;
     SysTick->VAL    = 0;
     SysTick->LOAD   = ((_SYSTEM_CLOCK / 1000) * 1) - 1; // 1ms
     SysTick->CTRL   |= (SysTick_CTRL_ENABLE_Msk | SysTick_CTRL_TICKINT_Msk | SysTick_CTRL_CLKSOURCE_Msk);
@@ -39,17 +37,14 @@ int main(void)
     }
 }
 
-void delay(const uint32_t ticks)
+void delay(uint32_t ticks)
 {
-    const uint32_t end = tick + ticks;
-
-    while(tick < end)
+    while(--ticks)
     {
-        // Empty
+        __WFI();
     }
 }
 
 void SysTick_Handler(void)
 {
-    tick++;
 }
